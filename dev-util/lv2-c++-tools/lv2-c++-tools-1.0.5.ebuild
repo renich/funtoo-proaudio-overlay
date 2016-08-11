@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="5"
-inherit multilib toolchain-funcs
+inherit flag-o-matic multilib toolchain-funcs
 
 DESCRIPTION="some tools and libraries that may come in handy when writing LV2 plugins"
 HOMEPAGE="http://ll-plugins.nongnu.org/hacking.html"
@@ -23,8 +23,15 @@ DEPEND="${RDEPEND}
 RESTRICT="mirror"
 
 src_prepare() {
+	# enable c++11
+	append-cxxflags -std=c++11
+	
+	# do not use deprecated names in boot.system's c++11 implementation
+	append-cxxflags -DBOOST_SYSTEM_NO_DEPRECATED
+	
 	# specify ar
 	sed -e 's:ar rcs:$(AR) rcs:' -i Makefile.template || die
+	
 	# don't run ldconfig
 	sed -e '/ldconfig/d' -i Makefile.template || die
 }
