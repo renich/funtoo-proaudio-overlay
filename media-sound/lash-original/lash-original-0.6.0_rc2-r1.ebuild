@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 AUTOTOOLS_AUTORECONF=yes
 inherit autotools-utils eutils python-single-r1 multilib-minimal
 
-MY_PV="${PV/_/\~}"
+MY_PV="${PV/_/~}"
 MY_PN="${PN/-original/}"
 MY_P="${MY_PN}-${MY_PV}"
 
